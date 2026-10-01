@@ -33,7 +33,7 @@ Memoria del proyecto entre sesiones. Máximo ~50 líneas: resume o elimina lo qu
 - [2026-09-30] Fechas futuras inflaban las rachas. Solución: filtrar sesiones con fecha > hoy antes de calcular cualquier racha.
 - [2026-09-30] No usar `toISOString()` ni `new Date("AAAA-MM-DD")` para fechas locales: se interpretan en UTC y desplazan el día.
 - [2026-10-01] Probado en Chrome con 3 sesiones (hoy 1 oct, ayer 30 sept, anteayer 29 sept): racha=3, mejor racha=3 días (29 sept - 1 oct), sin errores de consola. Ojo: si ayer cae en el mes anterior, "Este mes" cuenta solo los días del mes natural actual (mostró 1 día: solo el 1 oct). Es el comportamiento esperado.
-- [2026-10-01] DISCREPANCIA (RESUELTA el 2026-10-01): el AGENTS.md dice clave `diario-estudio-sesiones` con `{date, topic, minutes, createdAt}`, pero el código real usa `sesiones` y `{fecha, tema, minutos}`. Decisión: la fuente de verdad es el código real; el mapa lee de forma defensiva y no migra datos. AGENTS.md queda desalineado (pendiente de corregir).
+- [2026-10-01] DISCREPANCIA (RESUELTA el 2026-10-01): el AGENTS.md decía clave `diario-estudio-sesiones` con `{date, topic, minutes, createdAt}`, pero el código real usa `sesiones` y `{fecha, tema, minutos}`. Decisión: la fuente de verdad es el código real; el mapa lee de forma defensiva y no migra datos. AGENTS.md ya alineado con el código (clave `sesiones`, `{fecha, tema, minutos}`), el stack real (`styles.css`, `heatmap.js`, `test/`) y la verificación con `node --test`.
 
 ## Próximos pasos
 - `calcularMejorRacha` usa `new Date("AAAA-MM-DD")` y división por `86400000` (líneas ~109-111): viola la skill `local-dates`. Pendiente de corregir si el usuario lo autoriza.

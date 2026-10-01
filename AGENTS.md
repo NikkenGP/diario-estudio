@@ -1,7 +1,7 @@
 # AGENTS.md - Diario de Estudio
 
 ## Stack y estructura
-- `index.html` (estructura), `Styles.css` (estilos), `app.js`(lógica y datos).
+- `index.html` (estructura), `styles.css` (estilos), `app.js` (interfaz, almacenamiento y cálculos de racha/semana/mes), `heatmap.js` (lógica pura del mapa de calor) y `test/` (tests con `node --test`).
 - Debe funcionar abriendo `index.html` con doble click (`file://`); nada de módulos ES (`type="module"`), `fetch` a archivos locales ni nada que requiera servidor
 
 ## Convenciones
@@ -12,7 +12,7 @@
 
 ## Datos
 
-- LocalStorage, clave `diario-estudio-sesiones`: array de `{date: "AAAA-MM-DD", topic, minutes, createdAt }` (`createdAt` = `Date.now()`, ordena sesiones del mismo día).
+- LocalStorage, clave `sesiones`: array de `{ fecha: "AAAA-MM-DD", tema, minutos }` (`minutos` es el total en minutos de la sesión).
 - Si cambias la forma de los datos, mantén compatibilidad con lo ya guardado o el usuario perderá sus sesiones.
 
 ## Fechas y racha (fácil equivocarse)
@@ -49,5 +49,5 @@
 - 🚫 Nunca: añadir dependencias, frameworks o un paso de build.
 
 ## Verificación
-- No hay tests automáticos. Después de cada cambio, verifica con el MCP de Chrome DevTools: abre `index.html`, prueba la funcionalidad, revisa la consola y comprueba la vista móvil. 
+- La lógica pura (`heatmap.js`) se prueba con `node --test`. Después de cada cambio, verifica también con el MCP de Chrome DevTools: abre `index.html`, prueba la funcionalidad, revisa la consola y comprueba la vista móvil.
 - Para empezar de cero: DevTools → Application → Local Storage → borrar la clave `sesiones`.
