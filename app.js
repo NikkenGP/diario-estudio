@@ -40,7 +40,14 @@ function fechaAtexto(fecha) {
  */
 function obtenerSesiones() {
     const datos = localStorage.getItem('sesiones');
-    return datos ? JSON.parse(datos) : [];
+    if (!datos) return [];
+    try {
+        return JSON.parse(datos);
+    } catch (e) {
+        // Datos corruptos: no rompemos la app; se comporta como "sin datos".
+        // No borramos la clave para no destruir lo que el usuario tenga guardado.
+        return [];
+    }
 }
 
 /**

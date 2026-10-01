@@ -82,6 +82,7 @@ Cada commit relevante se anota aquí (el más reciente primero).
 
 | Fecha | Cambio |
 |---|---|
+| 2026-10-01 | Corrección de RNF-9: un `localStorage` corrupto ya no rompe la app (se degrada a "sin datos"). |
 | 2026-10-01 | Mapa de calor de las últimas 12 semanas (lógica en `heatmap.js`, tests con `node --test`, leyenda, detalle por día). |
 | 2026-10-01 | Decisión: el historial de cambios vive en el README (sin `CHANGELOG.md`), con regla de poda. |
 | 2026-10-01 | Constitución del proyecto, regla de historial en `AGENTS.md` y actualización del README. |
