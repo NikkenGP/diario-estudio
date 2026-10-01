@@ -22,13 +22,16 @@ Memoria del proyecto entre sesiones. Máximo ~50 líneas: resume o elimina lo qu
 - Spec `specs/001-heat-map/spec.md` escrita: mapa de calor tipo GitHub, 12 semanas alineadas a lunes, franjas fijas de minutos (0 / 1-30 / 31-60 / 61-120 / >120), detalle al interactuar, leyenda. Solo QUÉ y POR QUÉ; plan pendiente.
 - Plan `specs/001-heat-map/plan.md` escrito: `heatmap.js` (lógica pura con "hoy"), `test/heatmap.test.js` (node --test), cambios en `index.html`/`styles.css`/`app.js`. Guardia CommonJS para servir en navegador y en Node. BLOQUEANTE: decidir el modelo de datos (AGENTS.md dice `diario-estudio-sesiones`+`createdAt`; el código usa `sesiones`+`{fecha,tema,minutos}`).
 - Tasks `specs/001-heat-map/tasks.md` escritas: 17 tareas (T0–T16) en 5 fases, con checkboxes, RF por tarea y "Hecho cuando" verificable. T0 (modelo de datos) es bloqueante.
+- Mapa de calor COMPLETADO (T0–T16). Decisión T0: fuente de verdad = código real (`sesiones` / `{fecha, tema, minutos}`), con lectura defensiva (`fecha`/`date`, `minutos`/`minutes`) y sin migrar datos. Nuevos: `heatmap.js` (lógica pura con "hoy") y `test/heatmap.test.js` (20 tests, `node --test`, verde). Modificados: `index.html` (sección mapa + carga de heatmap.js), `styles.css` (rejilla/niveles/leyenda), `app.js` (pintado e interacción). Etiqueta "D mes — N min" / "D mes — sin sesión".
+- T1 completada: creados `heatmap.js` (esqueleto con guardia CommonJS) y `test/heatmap.test.js` (TDD: test en rojo → verde con `node --test`, 1/1). T2 pendiente. Nota: T1 se hizo antes de resolver T0; no toca datos, así que no hay riesgo.
 - Regla nueva en `AGENTS.md`: cada commit se anota en la sección "Historial de cambios" del `README.md`. El historial se queda en el README (no se crea `CHANGELOG.md`); si pasa de ~15 entradas, se podan las más antiguas dejando las 10 recientes.
+- [2026-10-01] Aprendizaje: en `app.js` (entorno navegador, no módulo) conviene usar nombres propios de ese archivo; `heatmap.js` se carga antes y expone funciones globales (`buildHeatmap`, etc.).
 
 ## Aprendizajes y errores a evitar
 - [2026-09-30] Fechas futuras inflaban las rachas. Solución: filtrar sesiones con fecha > hoy antes de calcular cualquier racha.
 - [2026-09-30] No usar `toISOString()` ni `new Date("AAAA-MM-DD")` para fechas locales: se interpretan en UTC y desplazan el día.
 - [2026-10-01] Probado en Chrome con 3 sesiones (hoy 1 oct, ayer 30 sept, anteayer 29 sept): racha=3, mejor racha=3 días (29 sept - 1 oct), sin errores de consola. Ojo: si ayer cae en el mes anterior, "Este mes" cuenta solo los días del mes natural actual (mostró 1 día: solo el 1 oct). Es el comportamiento esperado.
-- [2026-10-01] DISCREPANCIA: el AGENTS.md actualizado dice que los datos van en clave `diario-estudio-sesiones` con forma `{date, topic, minutes, createdAt}`, pero el código real usa la clave `sesiones` y `{fecha, tema, minutos}` (sin `createdAt`). Pendiente de decidir cuál es la fuente de verdad.
+- [2026-10-01] DISCREPANCIA (RESUELTA el 2026-10-01): el AGENTS.md dice clave `diario-estudio-sesiones` con `{date, topic, minutes, createdAt}`, pero el código real usa `sesiones` y `{fecha, tema, minutos}`. Decisión: la fuente de verdad es el código real; el mapa lee de forma defensiva y no migra datos. AGENTS.md queda desalineado (pendiente de corregir).
 
 ## Próximos pasos
 - `calcularMejorRacha` usa `new Date("AAAA-MM-DD")` y división por `86400000` (líneas ~109-111): viola la skill `local-dates`. Pendiente de corregir si el usuario lo autoriza.

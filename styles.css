@@ -292,6 +292,106 @@ input:focus {
 }
 
 /* --------------------------------------------
+   Mapa de calor (últimas 12 semanas)
+   -------------------------------------------- */
+.mapa-calor {
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.mapa-calor-caja {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.mapa-rejilla {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+    width: 100%;
+}
+
+.mapa-semana {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.mapa-dia {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 3px;
+    border: 1px solid transparent;
+}
+
+.mapa-dia-futuro {
+    border: 1px dashed var(--borde);
+}
+
+/* Niveles de intensidad (coherentes con el acento de la app) */
+.nivel-0 {
+    background: #e3e8ee;
+}
+
+.nivel-1 {
+    background: #b9c6f0;
+}
+
+.nivel-2 {
+    background: #7f95df;
+}
+
+.nivel-3 {
+    background: #4a68cf;
+}
+
+.nivel-4 {
+    background: var(--acento);
+}
+
+.mapa-dia:focus-visible {
+    outline: 2px solid var(--tinta);
+    outline-offset: 1px;
+}
+
+.mapa-etiqueta {
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--tinta);
+    min-height: 1.2em;
+}
+
+.mapa-mensaje {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--tinta-suave);
+    font-style: italic;
+}
+
+.mapa-leyenda {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--tinta-suave);
+}
+
+.mapa-leyenda .mapa-dia {
+    width: 14px;
+    min-width: 14px;
+    flex: 0 0 14px;
+}
+
+/* --------------------------------------------
    Accesibilidad: foco visible y movimiento reducido
    -------------------------------------------- */
 :focus-visible {

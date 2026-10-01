@@ -13,6 +13,7 @@ sin instalar nada.
 - Muestra la **mejor racha** histórica con su rango de fechas.
 - Suma el **tiempo de la semana** (de lunes a hoy).
 - Cuenta los **días estudiados este mes**.
+- Muestra un **mapa de calor** de las últimas 12 semanas (cuantos más minutos, más intenso).
 - Lista el historial de sesiones.
 
 ## Cómo usarla
@@ -29,8 +30,17 @@ la clave `sesiones`.
 ## Cómo funciona por dentro
 
 - Sin backend, sin dependencias y sin paso de build: HTML, CSS y JavaScript puros.
-- Tres archivos: `index.html`, `styles.css` y `app.js`.
+- Cuatro archivos: `index.html`, `styles.css`, `app.js` y `heatmap.js`.
 - Los datos se guardan en `localStorage` bajo la clave `sesiones`.
+
+## Tests
+
+La lógica del mapa de calor vive en `heatmap.js` como funciones puras (reciben
+"hoy" como parámetro, sin DOM ni `localStorage`) y se prueba sin instalar nada:
+
+```
+node --test
+```
 
 ## Reglas de fechas
 
@@ -45,9 +55,9 @@ Las fechas son la mayor fuente de errores, así que se tratan con cuidado:
 
 ## Desarrollo
 
-- No hay tests automáticos. Después de cada cambio, se verifica con Chrome
-  DevTools: abre `index.html`, prueba la funcionalidad, revisa la consola y
-  comprueba la vista móvil.
+- Los tests automáticos se ejecutan con `node --test`. Después de cada cambio, se
+  verifica con Chrome DevTools: abre `index.html`, prueba la funcionalidad, revisa
+  la consola y comprueba la vista móvil.
 - Consulta `AGENTS.md` para las reglas del proyecto y `MEMORY.md` para el estado
   actual y las decisiones tomadas.
 
@@ -58,6 +68,8 @@ Las fechas son la mayor fuente de errores, así que se tratan con cuidado:
 | `index.html` | Estructura de la interfaz |
 | `styles.css` | Estilos |
 | `app.js` | Lógica (racha, semana, mes, almacenamiento) |
+| `heatmap.js` | Lógica pura del mapa de calor (recibe "hoy"; sin DOM) |
+| `test/` | Tests de la lógica con `node --test` |
 | `AGENTS.md` | Reglas para los agentes |
 | `MEMORY.md` | Memoria del proyecto entre sesiones |
 | `docs/constitution.md` | Principios innegociables del proyecto |
@@ -70,6 +82,7 @@ Cada commit relevante se anota aquí (el más reciente primero).
 
 | Fecha | Cambio |
 |---|---|
+| 2026-10-01 | Mapa de calor de las últimas 12 semanas (lógica en `heatmap.js`, tests con `node --test`, leyenda, detalle por día). |
 | 2026-10-01 | Decisión: el historial de cambios vive en el README (sin `CHANGELOG.md`), con regla de poda. |
 | 2026-10-01 | Constitución del proyecto, regla de historial en `AGENTS.md` y actualización del README. |
 | 2026-10-01 | Spec, plan y tareas del mapa de calor (`specs/001-heat-map/`). |

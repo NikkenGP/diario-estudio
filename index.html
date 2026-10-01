@@ -34,6 +34,25 @@
             </section>
         </div>
 
+        <!-- Mapa de calor de las últimas semanas -->
+        <section class="mapa-calor">
+            <h2>Últimas 12 semanas</h2>
+            <div class="mapa-calor-caja">
+                <div id="mapa-calor" class="mapa-rejilla" role="group" aria-label="Mapa de calor de días estudiados"></div>
+                <p id="mapa-etiqueta" class="mapa-etiqueta oculto" aria-live="polite"></p>
+                <p id="mapa-mensaje" class="mapa-mensaje oculto"></p>
+                <div class="mapa-leyenda" aria-hidden="true">
+                    <span>Menos</span>
+                    <span class="mapa-dia nivel-0"></span>
+                    <span class="mapa-dia nivel-1"></span>
+                    <span class="mapa-dia nivel-2"></span>
+                    <span class="mapa-dia nivel-3"></span>
+                    <span class="mapa-dia nivel-4"></span>
+                    <span>Más</span>
+                </div>
+            </div>
+        </section>
+
         <!-- Formulario para registrar sesión -->
         <section class="formulario">
             <h2>Registrar sesión</h2>
@@ -67,6 +86,7 @@
         </section>
     </div>
 
+    <script src="heatmap.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

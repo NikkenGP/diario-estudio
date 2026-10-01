@@ -16,6 +16,9 @@ const elementoTotalSemana = document.getElementById('total-semana');
 const elementoDiasMes = document.getElementById('dias-mes');
 const elementoMensaje = document.getElementById('mensaje');
 const listaSesiones = document.getElementById('lista-sesiones');
+const contenedorMapa = document.getElementById('mapa-calor');
+const elementoEtiquetaMapa = document.getElementById('mapa-etiqueta');
+const elementoMensajeMapa = document.getElementById('mapa-mensaje');
 
 
 /* --------------------------------------------
@@ -305,6 +308,98 @@ function actualizarLista() {
 
 
 /* --------------------------------------------
+   PASO 3b: Mapa de calor (lógica en heatmap.js)
+   -------------------------------------------- */
+
+/**
+ * Formatea una fecha "AAAA-MM-DD" a "D mes" en español
+ * Ejemplo: "2026-09-30" -> "30 sept"
+ */
+function formatearFechaMapa(fechaTexto) {
+    const [año, mes, dia] = fechaTexto.split('-').map(Number);
+    const fecha = new Date(año, mes - 1, dia);
+    return fecha.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
+}
+
+/**
+ * Texto de la etiqueta de un día del mapa
+ * Formato fijo por RF-4: "D mes — N min" o "D mes — sin sesión"
+ */
+function textoEtiquetaDia(dia) {
+    const fecha = formatearFechaMapa(dia.fecha);
+    if (dia.minutos > 0) {
+        return `${fecha} — ${dia.minutos} min`;
+    }
+    return `${fecha} — sin sesión`;
+}
+
+/**
+ * Muestra/oculta la etiqueta del día del mapa
+ */
+function mostrarEtiquetaMapa(texto) {
+    elementoEtiquetaMapa.textContent = texto;
+    elementoEtiquetaMapa.classList.remove('oculto');
+}
+
+function ocultarEtiquetaMapa() {
+    elementoEtiquetaMapa.textContent = '';
+    elementoEtiquetaMapa.classList.add('oculto');
+}
+
+/**
+ * Pinta el mapa de calor a partir del modelo de heatmap.js
+ */
+function actualizarMapaCalor() {
+    const sesiones = obtenerSesiones();
+    const hoy = fechaAtexto(new Date());
+    const modelo = buildHeatmap(sesiones, hoy, 12);
+
+    contenedorMapa.innerHTML = '';
+    ocultarEtiquetaMapa();
+
+    modelo.semanas.forEach(semana => {
+        const columna = document.createElement('div');
+        columna.className = 'mapa-semana';
+
+        semana.forEach(dia => {
+            if (dia.futuro) {
+                // Día futuro: hueco no interactivo
+                const hueco = document.createElement('div');
+                hueco.className = 'mapa-dia mapa-dia-futuro';
+                columna.appendChild(hueco);
+                return;
+            }
+
+            const celda = document.createElement('div');
+            celda.className = `mapa-dia nivel-${dia.nivel}`;
+            celda.tabIndex = 0;
+            celda.setAttribute('aria-label', textoEtiquetaDia(dia));
+
+            const etiqueta = textoEtiquetaDia(dia);
+            celda.addEventListener('mouseenter', () => mostrarEtiquetaMapa(etiqueta));
+            celda.addEventListener('focus', () => mostrarEtiquetaMapa(etiqueta));
+            celda.addEventListener('mouseleave', ocultarEtiquetaMapa);
+            celda.addEventListener('blur', ocultarEtiquetaMapa);
+            celda.addEventListener('touchstart', () => mostrarEtiquetaMapa(etiqueta), { passive: true });
+
+            columna.appendChild(celda);
+        });
+
+        contenedorMapa.appendChild(columna);
+    });
+
+    // Mensaje de estado sin datos (la rejilla sigue pintada)
+    if (modelo.mensaje) {
+        elementoMensajeMapa.textContent = modelo.mensaje;
+        elementoMensajeMapa.classList.remove('oculto');
+    } else {
+        elementoMensajeMapa.textContent = '';
+        elementoMensajeMapa.classList.add('oculto');
+    }
+}
+
+
+/* --------------------------------------------
    PASO 4: Mostrar mensaje temporal
    -------------------------------------------- */
 function mostrarMensaje(texto) {
@@ -353,6 +448,7 @@ formSesion.addEventListener('submit', function(e) {
     actualizarTotalSemana();
     actualizarDiasMes();
     actualizarLista();
+    actualizarMapaCalor();
     
     // Limpiamos el formulario y ponemos la fecha de hoy
     inputTema.value = '';
@@ -377,3 +473,4 @@ actualizarMejorRacha();
 actualizarTotalSemana();
 actualizarDiasMes();
 actualizarLista();
+actualizarMapaCalor();
