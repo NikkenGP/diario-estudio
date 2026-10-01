@@ -6,6 +6,7 @@ Memoria del proyecto entre sesiones. Máximo ~50 líneas: resume o elimina lo qu
 - v1 funcionando: registrar sesiones (fecha, tema, horas+minutos), racha actual, mejor racha con rango de fechas, total de horas/minutos de la semana actual, días estudiados del mes actual, lista de sesiones.
 - Tres archivos: `index.html`, `styles.css`, `app.js`.
 - Datos en localStorage bajo la clave `sesiones`.
+- Versionado en Git: repo público `https://github.com/NikkenGP/diario-estudio` (rama `main`).
 
 ## Decisiones (y por qué)
 - Sin backend ni dependencias: cualquiera debe poder abrirlo con doble clic.
@@ -15,6 +16,8 @@ Memoria del proyecto entre sesiones. Máximo ~50 líneas: resume o elimina lo qu
 - Semana empieza en lunes (estándar ISO): coherente con el calendario español.
 - Días del mes: cuenta fechas únicas (varias sesiones el mismo día = 1 día), mes natural (día 1 a hoy), etiqueta "Este mes: N días". Se calcula como texto `"YYYY-MM"` sin parsear fechas, reutilizando `filtrarSesionesValidas` y `fechaAtexto`.
 - Diseño (skill `frontend-design`): concepto "cuaderno de bocetos" — fondo de papel cuadriculado, tinta azul, subrayador amarillo en la racha. Un solo protagonista (la tarjeta de racha); estadísticas semana/mes agrupadas en un bloque `.resumen` de dos columnas; sin sombras ni tarjetas-clon. Tipografía: serif del sistema (Georgia) para títulos/cifras y sans del sistema para el resto; sin fuentes externas (respeta "sin dependencias").
+- `.gitignore` ignora config local del agente (`.opencode/`, `.agents/`, `opencode.json`, `skills-lock.json`) y `.env`. `AGENTS.md` y `MEMORY.md` sí se versionan.
+- El push usa el token de `opencode.json` de forma efímera (`git -c http.extraheader`); no se guarda en `.git/config`. Git no está en el PATH: usar `C:\Program Files\Git\cmd\git.exe`.
 
 ## Aprendizajes y errores a evitar
 - [2026-09-30] Fechas futuras inflaban las rachas. Solución: filtrar sesiones con fecha > hoy antes de calcular cualquier racha.
@@ -23,3 +26,4 @@ Memoria del proyecto entre sesiones. Máximo ~50 líneas: resume o elimina lo qu
 
 ## Próximos pasos
 - `calcularMejorRacha` usa `new Date("AAAA-MM-DD")` y división por `86400000` (líneas ~109-111): viola la skill `local-dates`. Pendiente de corregir si el usuario lo autoriza.
+- SEGURIDAD: rotar/revocar el token de GitHub expuesto en texto plano en `opencode.json` y moverlo a variable de entorno.
