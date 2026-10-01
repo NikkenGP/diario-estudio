@@ -18,6 +18,7 @@ Memoria del proyecto entre sesiones. Máximo ~50 líneas: resume o elimina lo qu
 - Diseño (skill `frontend-design`): concepto "cuaderno de bocetos" — fondo de papel cuadriculado, tinta azul, subrayador amarillo en la racha. Un solo protagonista (la tarjeta de racha); estadísticas semana/mes agrupadas en un bloque `.resumen` de dos columnas; sin sombras ni tarjetas-clon. Tipografía: serif del sistema (Georgia) para títulos/cifras y sans del sistema para el resto; sin fuentes externas (respeta "sin dependencias").
 - `.gitignore` ignora config local del agente (`.opencode/`, `.agents/`, `opencode.json`, `skills-lock.json`) y `.env`. `AGENTS.md` y `MEMORY.md` sí se versionan.
 - El push usa el token de `opencode.json` de forma efímera (`git -c http.extraheader`); no se guarda en `.git/config`. Git no está en el PATH: usar `C:\Program Files\Git\cmd\git.exe`.
+- `README.md` en la raíz (uso, funcionamiento interno, reglas de fechas, estructura) + `docs/captura-movil.png`. Corregida en `AGENTS.md` la clave de localStorage a `sesiones` (antes decía `diario-estudio-sesiones`, que no existe en el código).
 
 ## Aprendizajes y errores a evitar
 - [2026-09-30] Fechas futuras inflaban las rachas. Solución: filtrar sesiones con fecha > hoy antes de calcular cualquier racha.
