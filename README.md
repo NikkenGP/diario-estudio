@@ -60,4 +60,18 @@ Las fechas son la mayor fuente de errores, así que se tratan con cuidado:
 | `app.js` | Lógica (racha, semana, mes, almacenamiento) |
 | `AGENTS.md` | Reglas para los agentes |
 | `MEMORY.md` | Memoria del proyecto entre sesiones |
+| `docs/constitution.md` | Principios innegociables del proyecto |
+| `specs/` | Especificaciones, planes y tareas por funcionalidad |
 | `docs/captura-movil.png` | Captura de la vista móvil |
+
+## Historial de cambios
+
+Cada commit relevante se anota aquí (el más reciente primero).
+
+| Fecha | Cambio |
+|---|---|
+| 2026-10-01 | Constitución del proyecto, regla de historial en `AGENTS.md` y actualización del README. |
+| 2026-10-01 | Spec, plan y tareas del mapa de calor (`specs/001-heat-map/`). |
+| 2026-10-01 | README con captura de la vista móvil y corrección de la clave de localStorage en `AGENTS.md`. |
+| 2026-10-01 | Registro del versionado en Git y avisos de seguridad en `MEMORY.md`. |
+| 2026-10-01 | Versión inicial: sesiones, racha, mejor racha, tiempo semanal y días del mes. |

@@ -1,5 +1,20 @@
 # AGENTS.md - Diario de Estudio
 
+## Stack y estructura
+- `index.html` (estructura), `Styles.css` (estilos), `app.js`(lógica y datos).
+- Debe funcionar abriendo `index.html` con doble click (`file://`); nada de módulos ES (`type="module"`), `fetch` a archivos locales ni nada que requiera servidor
+
+## Convenciones
+
+- Textos de la interfaz en español.
+- Código simple, nombres descriptivos y comentarios solo donde aporten.
+- Diseño limpio y responsive; cualquier pantalla nueva debe verse bien en el móvil.
+
+## Datos
+
+- LocalStorage, clave `diario-estudio-sesiones`: array de `{date: "AAAA-MM-DD", topic, minutes, createdAt }` (`createdAt` = `Date.now()`, ordena sesiones del mismo día).
+- Si cambias la forma de los datos, mantén compatibilidad con lo ya guardado o el usuario perderá sus sesiones.
+
 ## Fechas y racha (fácil equivocarse)
 - Trabaja siempre con la fecha local del usuario. Nunca uses `toISOString()` ni `new Date("AAAA-MM-DD")`: se interpretan en UTC y desplazan el día.
 - Racha = días consecutivos con al menos 1 sesión que terminan hoy. Si hoy no hay sesión pero ayer sí, la racha sigue viva y se cuenta desde ayer.
@@ -16,6 +31,15 @@
 - Mantenlo breve (máximo ~50 líneas): resume o elimina lo que ya no aporte.
 - Si algo se convierte en una regla permanente, propón moverlo a `AGENTS.md` en lugar de dejarlo en la memoria.
 - No guardes nunca datos sensibles (claves, tokens, datos personales).
+
+## Comandos
+- Tests: `node --test`
+
+## Git
+- Cada commit debe registrar sus cambios en la sección "Historial de cambios" del `README.md`.
+
+## Reglas
+- Lee `docs/constitution.md` y la spec activa (`specs/NNN-*/`) antes de tocar código. 
 
 ## Límites
 - ✅ Siempre: respetar las reglas de fechas y racha, mantener los textos en español.
