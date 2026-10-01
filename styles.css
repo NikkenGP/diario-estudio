@@ -1,0 +1,307 @@
+/* ============================================
+   DIARIO DE ESTUDIO - ESTILOS
+   Concepto: cuaderno de bocetos / papel cuadriculado,
+   tinta y subrayador. Un solo protagonista: la racha.
+   ============================================ */
+
+:root {
+    /* Papel y tinta */
+    --papel: #e8ecef;
+    --papel-linea: #d8dee3;
+    --superficie: #f8fafb;
+    --tinta: #16233a;
+    --tinta-suave: #5c6b7c;
+    --borde: rgba(22, 35, 58, 0.12);
+
+    /* Acentos */
+    --acento: #2547c9;
+    --acento-oscuro: #1b359e;
+    --marcador: #ffd24c;
+    --exito: #1e7a57;
+
+    /* Tipografía (sin fuentes externas: funciona sin red) */
+    --serif: Georgia, "Times New Roman", "Liberation Serif", serif;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+    --radio: 16px;
+    --radio-grande: 22px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--sans);
+    line-height: 1.5;
+    color: var(--tinta);
+    background-color: var(--papel);
+    background-image:
+        linear-gradient(var(--papel-linea) 1px, transparent 1px),
+        linear-gradient(90deg, var(--papel-linea) 1px, transparent 1px);
+    background-size: 24px 24px;
+    min-height: 100vh;
+    padding: 24px 20px 48px;
+    -webkit-font-smoothing: antialiased;
+}
+
+.contenedor {
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--tinta);
+    padding-bottom: 14px;
+    margin-bottom: 22px;
+    border-bottom: 1px solid var(--borde);
+}
+
+h2 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--tinta);
+    margin-bottom: 14px;
+}
+
+/* --------------------------------------------
+   Racha actual: el único protagonista
+   -------------------------------------------- */
+.racha {
+    background: var(--acento);
+    color: #fff;
+    padding: 30px 24px 26px;
+    border-radius: var(--radio-grande);
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.racha-numero {
+    display: block;
+    font-family: var(--serif);
+    font-size: clamp(3.75rem, 18vw, 5.5rem);
+    font-weight: 700;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    font-variant-numeric: lining-nums;
+}
+
+.racha-texto {
+    display: inline-block;
+    margin-top: 14px;
+    background: var(--marcador);
+    color: var(--tinta);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    padding: 5px 13px;
+    border-radius: 999px;
+}
+
+/* --------------------------------------------
+   Mejor racha: nota al pie del héroe
+   -------------------------------------------- */
+.mejor-racha {
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--tinta-suave);
+    padding: 4px 8px 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px dashed var(--borde);
+}
+
+/* --------------------------------------------
+   Estadísticas del periodo: registro en dos columnas
+   -------------------------------------------- */
+.resumen {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    margin-bottom: 24px;
+}
+
+.resumen > section {
+    padding: 16px 10px;
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--tinta);
+}
+
+.resumen > section + section {
+    border-left: 1px solid var(--borde);
+}
+
+.total-semana span::before,
+.dias-mes span::before {
+    content: "";
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin: 0 auto 8px;
+}
+
+.total-semana span::before {
+    background: var(--exito);
+}
+
+.dias-mes span::before {
+    background: var(--acento);
+}
+
+/* --------------------------------------------
+   Formulario
+   -------------------------------------------- */
+.formulario {
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--tinta-suave);
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--tinta);
+    background: #fff;
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    margin-bottom: 16px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--acento);
+    box-shadow: 0 0 0 3px rgba(37, 71, 201, 0.15);
+}
+
+.tiempo-fila {
+    display: flex;
+    gap: 12px;
+}
+
+.tiempo-col {
+    flex: 1;
+}
+
+.boton-principal {
+    width: 100%;
+    background: var(--acento);
+    color: #fff;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.boton-principal:hover {
+    background: var(--acento-oscuro);
+}
+
+.mensaje {
+    margin-top: 14px;
+    text-align: center;
+    color: var(--exito);
+    font-weight: 700;
+}
+
+.oculto {
+    display: none;
+}
+
+/* --------------------------------------------
+   Lista de sesiones: registro del cuaderno
+   -------------------------------------------- */
+.sesiones {
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    padding: 24px;
+}
+
+.lista-sesiones {
+    list-style: none;
+}
+
+.lista-sesiones li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 2px 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--borde);
+}
+
+.lista-sesiones li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.sesion-fecha {
+    flex: 0 0 100%;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--tinta-suave);
+    text-transform: capitalize;
+}
+
+.sesion-tema {
+    font-weight: 700;
+    color: var(--tinta);
+}
+
+.sesion-minutos {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--acento);
+    font-variant-numeric: tabular-nums;
+}
+
+.sin-sesiones {
+    text-align: center;
+    color: var(--tinta-suave);
+    font-style: italic;
+    padding: 20px 0;
+}
+
+/* --------------------------------------------
+   Accesibilidad: foco visible y movimiento reducido
+   -------------------------------------------- */
+:focus-visible {
+    outline: 2px solid var(--acento);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}

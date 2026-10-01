@@ -1,0 +1,8 @@
+# Configuración local del agente / OpenCode
+.opencode/
+.agents/
+opencode.json
+skills-lock.json
+
+# Secretos locales
+.env

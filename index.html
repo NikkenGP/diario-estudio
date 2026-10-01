@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diario de Estudio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="contenedor">
+        <h1>📚 Diario de Estudio</h1>
+
+        <!-- Racha actual -->
+        <section class="racha">
+            <span class="racha-numero" id="racha">0</span>
+            <span class="racha-texto">días de racha 🔥</span>
+        </section>
+
+        <!-- Mejor racha -->
+        <section class="mejor-racha">
+            <span id="mejor-racha">🏆 Mejor racha: 0 días</span>
+        </section>
+
+        <!-- Estadísticas del periodo -->
+        <div class="resumen">
+            <!-- Total de la semana -->
+            <section class="total-semana">
+                <span id="total-semana">Esta semana: 0min</span>
+            </section>
+
+            <!-- Días estudiados este mes -->
+            <section class="dias-mes">
+                <span id="dias-mes">Este mes: 0 días</span>
+            </section>
+        </div>
+
+        <!-- Formulario para registrar sesión -->
+        <section class="formulario">
+            <h2>Registrar sesión</h2>
+            <form id="form-sesion">
+                <label for="fecha">Fecha</label>
+                <input type="date" id="fecha" required>
+
+                <label for="tema">Tema</label>
+                <input type="text" id="tema" placeholder="¿Qué estudiaste?" required>
+
+                <div class="tiempo-fila">
+                    <div class="tiempo-col">
+                        <label for="horas">Horas</label>
+                        <input type="number" id="horas" min="0" value="0" placeholder="0">
+                    </div>
+                    <div class="tiempo-col">
+                        <label for="minutos">Minutos</label>
+                        <input type="number" id="minutos" min="0" max="59" value="0" placeholder="0">
+                    </div>
+                </div>
+
+                <button type="submit" class="boton-principal">Guardar sesión</button>
+            </form>
+            <p id="mensaje" class="mensaje oculto"></p>
+        </section>
+
+        <!-- Lista de sesiones -->
+        <section class="sesiones">
+            <h2>Sesiones</h2>
+            <ul id="lista-sesiones" class="lista-sesiones"></ul>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
