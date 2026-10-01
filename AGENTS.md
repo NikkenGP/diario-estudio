@@ -37,6 +37,7 @@
 
 ## Git
 - Cada commit debe registrar sus cambios en la sección "Historial de cambios" del `README.md`.
+- El historial vive en el `README.md`. Si supera ~15 entradas, poda las más antiguas dejando las 10 más recientes.
 
 ## Reglas
 - Lee `docs/constitution.md` y la spec activa (`specs/NNN-*/`) antes de tocar código. 

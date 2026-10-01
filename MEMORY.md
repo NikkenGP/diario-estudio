@@ -22,7 +22,7 @@ Memoria del proyecto entre sesiones. Máximo ~50 líneas: resume o elimina lo qu
 - Spec `specs/001-heat-map/spec.md` escrita: mapa de calor tipo GitHub, 12 semanas alineadas a lunes, franjas fijas de minutos (0 / 1-30 / 31-60 / 61-120 / >120), detalle al interactuar, leyenda. Solo QUÉ y POR QUÉ; plan pendiente.
 - Plan `specs/001-heat-map/plan.md` escrito: `heatmap.js` (lógica pura con "hoy"), `test/heatmap.test.js` (node --test), cambios en `index.html`/`styles.css`/`app.js`. Guardia CommonJS para servir en navegador y en Node. BLOQUEANTE: decidir el modelo de datos (AGENTS.md dice `diario-estudio-sesiones`+`createdAt`; el código usa `sesiones`+`{fecha,tema,minutos}`).
 - Tasks `specs/001-heat-map/tasks.md` escritas: 17 tareas (T0–T16) en 5 fases, con checkboxes, RF por tarea y "Hecho cuando" verificable. T0 (modelo de datos) es bloqueante.
-- Regla nueva en `AGENTS.md`: cada commit se anota en la sección "Historial de cambios" del `README.md`.
+- Regla nueva en `AGENTS.md`: cada commit se anota en la sección "Historial de cambios" del `README.md`. El historial se queda en el README (no se crea `CHANGELOG.md`); si pasa de ~15 entradas, se podan las más antiguas dejando las 10 recientes.
 
 ## Aprendizajes y errores a evitar
 - [2026-09-30] Fechas futuras inflaban las rachas. Solución: filtrar sesiones con fecha > hoy antes de calcular cualquier racha.

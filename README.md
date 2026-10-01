@@ -70,6 +70,7 @@ Cada commit relevante se anota aquí (el más reciente primero).
 
 | Fecha | Cambio |
 |---|---|
+| 2026-10-01 | Decisión: el historial de cambios vive en el README (sin `CHANGELOG.md`), con regla de poda. |
 | 2026-10-01 | Constitución del proyecto, regla de historial en `AGENTS.md` y actualización del README. |
 | 2026-10-01 | Spec, plan y tareas del mapa de calor (`specs/001-heat-map/`). |
 | 2026-10-01 | README con captura de la vista móvil y corrección de la clave de localStorage en `AGENTS.md`. |
