@@ -116,12 +116,12 @@ function calcularMejorRacha(sesiones) {
     let inicioActual = diasUnicos[0];
     
     for (let i = 1; i < diasUnicos.length; i++) {
-        // Comparamos si el día actual es consecutivo al anterior
-        const fechaAnterior = new Date(diasUnicos[i - 1]);
-        const fechaActual = new Date(diasUnicos[i]);
-        const diffDias = (fechaActual - fechaAnterior) / (1000 * 60 * 60 * 24);
+        // Comparamos si el día actual es consecutivo al anterior.
+        // Comparamos texto con addDays (nunca new Date("AAAA-MM-DD") ni
+        // milisegundos): evita el corrimiento UTC y los cambios de hora.
+        const esConsecutivo = addDays(diasUnicos[i - 1], 1) === diasUnicos[i];
         
-        if (diffDias === 1) {
+        if (esConsecutivo) {
             // Día consecutivo, seguimos contando
             rachaActual++;
         } else {
