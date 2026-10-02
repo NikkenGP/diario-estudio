@@ -240,10 +240,8 @@ a hoy.
 
 ## Dudas abiertas
 
-- **[NECESITA ACLARACIÓN]** Modelo de datos: `AGENTS.md` describe las sesiones como
-  clave `diario-estudio-sesiones` con forma `{date, topic, minutes, createdAt}`,
-  pero el código actual usa la clave `sesiones` y `{fecha, tema, minutos}` (sin
-  `createdAt`). Esta spec no cambia el formato (RNF-4) y trabaja con el concepto
-  "fecha local + minutos por día", pero hay que decidir cuál es la fuente de verdad
-  antes del plan. La constitución prohíbe perder sesiones, así que cualquier
-  alineación de nombres debe preservar los datos existentes.
+- (ninguna) La duda sobre el modelo de datos quedó **resuelta el 2026-10-02**: la fuente
+  de verdad es la clave `sesiones` con forma `{ fecha: "AAAA-MM-DD", tema, minutos }`,
+  tal como usan el código y `AGENTS.md` (ya alineados). La spec no cambia el formato
+  (RNF-4); solo lee "fecha local + minutos por día". La constitución prohíbe perder
+  sesiones, así que cualquier cambio futuro debe preservar los datos existentes.

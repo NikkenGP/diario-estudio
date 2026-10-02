@@ -84,6 +84,7 @@ Cada commit relevante se anota aquí (el más reciente primero).
 
 | Fecha | Cambio |
 |---|---|
+| 2026-10-02 | Recomendaciones QA aplicadas: cerrada la duda de la spec 001 y ampliada la cobertura de tests (54/54) con etiqueta del mapa, leyenda y round-trip del perfil. |
 | 2026-10-02 | Auditoría QA (`docs/functional-test-report.md`) y corrección de los 2 hallazgos: toque fuera oculta la etiqueta del mapa y la meta no numérica muestra error. |
 | 2026-10-02 | Skill local `iniciar-sdd` (flujo SDD de 6 pasos con confirmación por paso); vive en `.agents/` (no versionado). |
 | 2026-10-01 | El nombre del perfil ahora solo admite letras (con acentos, espacios, guiones y apóstrofes); se rechazan dígitos. |
@@ -93,14 +94,5 @@ Cada commit relevante se anota aquí (el más reciente primero).
 | 2026-10-01 | Regla de `AGENTS.md` matizada (secretos vs datos personales) y spec 002 sin dudas abiertas. |
 | 2026-10-01 | Spec `specs/002-personal-data/spec.md` refinada tras revisión de QA (RF de borrado, límites, inicial del avatar, preferencia concreta, requisitos de accesibilidad). |
 | 2026-10-01 | Spec `specs/002-personal-data/spec.md`: perfil local (nombre, avatar inicial+color, meta semanal, preferencia). |
-| 2026-10-01 | Limpieza de `MEMORY.md`: retirados los pendientes ya resueltos (token de Git y `calcularMejorRacha`). |
-| 2026-10-01 | `AGENTS.md` alineado con el código: clave `sesiones`, `{fecha, tema, minutos}`, stack real y verificación con `node --test`. |
-| 2026-10-01 | Corrección de `calcularMejorRacha`: fechas locales sin UTC ni milisegundos (skill `local-dates`). |
-| 2026-10-01 | Corrección de RNF-9: un `localStorage` corrupto ya no rompe la app (se degrada a "sin datos"). |
-| 2026-10-01 | Mapa de calor de las últimas 12 semanas (lógica en `heatmap.js`, tests con `node --test`, leyenda, detalle por día). |
-| 2026-10-01 | Decisión: el historial de cambios vive en el README (sin `CHANGELOG.md`), con regla de poda. |
-| 2026-10-01 | Constitución del proyecto, regla de historial en `AGENTS.md` y actualización del README. |
-| 2026-10-01 | Spec, plan y tareas del mapa de calor (`specs/001-heat-map/`). |
-| 2026-10-01 | README con captura de la vista móvil y corrección de la clave de localStorage en `AGENTS.md`. |
-| 2026-10-01 | Registro del versionado en Git y avisos de seguridad en `MEMORY.md`. |
-| 2026-10-01 | Versión inicial: sesiones, racha, mejor racha, tiempo semanal y días del mes. |
+
+> Entradas anteriores podadas según la regla de mantenimiento (~15 entradas).

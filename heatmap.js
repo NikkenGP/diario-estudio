@@ -152,6 +152,34 @@ function buildHeatmap(sesiones, hoy, numSemanas) {
     return { semanas, tieneDatos, mensaje };
 }
 
+/**
+ * Niveles de la leyenda de intensidad, de menor a mayor (0 = vacío)
+ */
+const NIVELES_LEYENDA = [0, 1, 2, 3, 4];
+
+/**
+ * Formatea una fecha "AAAA-MM-DD" a "D mes" en español (RF-4)
+ * Ejemplo: "2026-09-30" -> "30 sept"
+ */
+function formatearFechaMapa(fechaTexto) {
+    const [año, mes, dia] = fechaTexto.split("-").map(Number);
+    const fecha = new Date(año, mes - 1, dia);
+    return fecha.toLocaleDateString("es-ES", { day: "numeric", month: "short" });
+}
+
+/**
+ * Texto de la etiqueta de un día del mapa (RF-4).
+ * Formato fijo: "D mes — N min" o "D mes — sin sesión".
+ */
+function textoEtiquetaDia(fechaTexto, minutos) {
+    const fecha = formatearFechaMapa(fechaTexto);
+    const numero = Number(minutos);
+    if (Number.isFinite(numero) && numero > 0) {
+        return `${fecha} — ${numero} min`;
+    }
+    return `${fecha} — sin sesión`;
+}
+
 /* --------------------------------------------
    Exportación (guardia CommonJS)
    -------------------------------------------- */
@@ -168,5 +196,8 @@ if (typeof module !== "undefined" && module.exports) {
         nivelIntensidad,
         ventanaSemanas,
         buildHeatmap,
+        NIVELES_LEYENDA,
+        formatearFechaMapa,
+        textoEtiquetaDia,
     };
 }

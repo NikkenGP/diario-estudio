@@ -16,6 +16,9 @@ const {
   nivelIntensidad,
   ventanaSemanas,
   buildHeatmap,
+  NIVELES_LEYENDA,
+  formatearFechaMapa,
+  textoEtiquetaDia,
 } = heatmap;
 
 // ---------------------------------------------------------
@@ -205,4 +208,29 @@ test("buildHeatmap ignora sesiones futuras al calcular", () => {
   const sesiones = [{ fecha: "2026-10-03", minutos: 200 }];
   const modelo = buildHeatmap(sesiones, "2026-10-01", 12);
   assert.strictEqual(modelo.tieneDatos, false);
+});
+
+// ---------------------------------------------------------
+// RF-4: texto de la etiqueta del día (antes solo interfaz)
+// ---------------------------------------------------------
+test("textoEtiquetaDia con minutos usa el formato 'D mes — N min'", () => {
+  assert.strictEqual(textoEtiquetaDia("2026-09-30", 45), "30 sept — 45 min");
+  assert.strictEqual(textoEtiquetaDia("2026-10-02", 121), "2 oct — 121 min");
+});
+
+test("textoEtiquetaDia sin minutos indica 'sin sesión'", () => {
+  assert.strictEqual(textoEtiquetaDia("2026-09-28", 0), "28 sept — sin sesión");
+  assert.strictEqual(textoEtiquetaDia("2026-09-28", null), "28 sept — sin sesión");
+});
+
+test("formatearFechaMapa usa el mes abreviado en español", () => {
+  assert.strictEqual(formatearFechaMapa("2026-01-05"), "5 ene");
+  assert.strictEqual(formatearFechaMapa("2026-07-13"), "13 jul");
+});
+
+// ---------------------------------------------------------
+// RF-5: leyenda de la escala (antes solo interfaz)
+// ---------------------------------------------------------
+test("NIVELES_LEYENDA cubre de 0 a 4, de menor a mayor", () => {
+  assert.deepStrictEqual(NIVELES_LEYENDA, [0, 1, 2, 3, 4]);
 });

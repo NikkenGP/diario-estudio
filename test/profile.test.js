@@ -276,3 +276,29 @@ test("normalizarPerfil tolera un objeto sin version", () => {
   assert.strictEqual(r.saludo, true);
   assert.strictEqual(r.version, 1);
 });
+
+// ---------------------------------------------------------
+// Round-trip: guardar (construir) -> leer (parsear) reproduce el perfil
+// (refuerza RF-6 persistencia y RF-9 borrado a nivel de lógica)
+// ---------------------------------------------------------
+test("round-trip: construir -> serializar -> parsear devuelve lo mismo", () => {
+  const construido = construirPerfil({
+    nombre: "José María",
+    color: PALETA[3],
+    meta: "120",
+    saludo: false,
+  });
+  assert.strictEqual(construido.ok, true);
+
+  const textoGuardado = JSON.stringify(construido.perfil);
+  const leido = parsearPerfil(textoGuardado);
+  assert.strictEqual(leido.estado, "ok");
+  assert.deepStrictEqual(leido.perfil, construido.perfil);
+});
+
+test("round-trip: tras 'borrar' (null) parsearPerfil devuelve estado vacio", () => {
+  // Simula borrar la clave: el valor leído es null
+  const leido = parsearPerfil(null);
+  assert.strictEqual(leido.estado, "vacio");
+  assert.deepStrictEqual(leido.perfil, PERFIL_POR_DEFECTO);
+});

@@ -19,6 +19,7 @@ const listaSesiones = document.getElementById('lista-sesiones');
 const contenedorMapa = document.getElementById('mapa-calor');
 const elementoEtiquetaMapa = document.getElementById('mapa-etiqueta');
 const elementoMensajeMapa = document.getElementById('mapa-mensaje');
+const contenedorLeyenda = document.getElementById('mapa-leyenda');
 // Perfil
 const elementoSaludo = document.getElementById('saludo');
 const botonAbrirPerfil = document.getElementById('abrir-perfil');
@@ -338,28 +339,6 @@ function actualizarLista() {
    -------------------------------------------- */
 
 /**
- * Formatea una fecha "AAAA-MM-DD" a "D mes" en español
- * Ejemplo: "2026-09-30" -> "30 sept"
- */
-function formatearFechaMapa(fechaTexto) {
-    const [año, mes, dia] = fechaTexto.split('-').map(Number);
-    const fecha = new Date(año, mes - 1, dia);
-    return fecha.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
-}
-
-/**
- * Texto de la etiqueta de un día del mapa
- * Formato fijo por RF-4: "D mes — N min" o "D mes — sin sesión"
- */
-function textoEtiquetaDia(dia) {
-    const fecha = formatearFechaMapa(dia.fecha);
-    if (dia.minutos > 0) {
-        return `${fecha} — ${dia.minutos} min`;
-    }
-    return `${fecha} — sin sesión`;
-}
-
-/**
  * Muestra/oculta la etiqueta del día del mapa
  */
 function mostrarEtiquetaMapa(texto) {
@@ -399,9 +378,9 @@ function actualizarMapaCalor() {
             const celda = document.createElement('div');
             celda.className = `mapa-dia nivel-${dia.nivel}`;
             celda.tabIndex = 0;
-            celda.setAttribute('aria-label', textoEtiquetaDia(dia));
+            celda.setAttribute('aria-label', textoEtiquetaDia(dia.fecha, dia.minutos));
 
-            const etiqueta = textoEtiquetaDia(dia);
+            const etiqueta = textoEtiquetaDia(dia.fecha, dia.minutos);
             celda.addEventListener('mouseenter', () => mostrarEtiquetaMapa(etiqueta));
             celda.addEventListener('focus', () => mostrarEtiquetaMapa(etiqueta));
             celda.addEventListener('mouseleave', ocultarEtiquetaMapa);
@@ -431,6 +410,26 @@ document.addEventListener('touchstart', (evento) => {
         ocultarEtiquetaMapa();
     }
 }, { passive: true });
+
+/**
+ * Pinta la leyenda de intensidad (RF-5) a partir de NIVELES_LEYENDA
+ */
+function pintarLeyenda() {
+    contenedorLeyenda.innerHTML = '';
+    const etiquetaMenos = document.createElement('span');
+    etiquetaMenos.textContent = 'Menos';
+    contenedorLeyenda.appendChild(etiquetaMenos);
+
+    NIVELES_LEYENDA.forEach(nivel => {
+        const muestra = document.createElement('span');
+        muestra.className = `mapa-dia nivel-${nivel}`;
+        contenedorLeyenda.appendChild(muestra);
+    });
+
+    const etiquetaMas = document.createElement('span');
+    etiquetaMas.textContent = 'Más';
+    contenedorLeyenda.appendChild(etiquetaMas);
+}
 
 
 /* --------------------------------------------
@@ -705,3 +704,6 @@ actualizarMapaCalor();
 // Cargamos el perfil (o el perfil por defecto) y lo pintamos
 estadoPerfil = leerPerfilGuardado();
 renderPerfil();
+
+// Leyenda del mapa (estática, no depende de los datos)
+pintarLeyenda();

@@ -55,6 +55,9 @@ normalizar, para evitar UTC).
 | `nivelIntensidad(minutos)` | número | 0..4 | Traduce minutos a nivel: 0 / 1–30 / 31–60 / 61–120 / >120. | RF-2 |
 | `ventanaSemanas(hoy, numSemanas)` | hoy + nº | matriz `numSemanas × 7` de `{ fecha, futuro }` | Construye 12 semanas alineadas a lunes; marca `futuro = fecha > hoy`. | RF-1, RF-6 |
 | `buildHeatmap(sesiones, hoy, numSemanas)` | sesiones + hoy (+nº) | `{ semanas, tieneDatos, mensaje }` | Ensambla el modelo: cada día con `{ fecha, minutos, nivel, futuro }`, más la bandera de datos y el mensaje. | RF-1, RF-2, RF-3, RF-6, RF-7, RF-8 |
+| `formatearFechaMapa(fechaTexto)` | texto `"AAAA-MM-DD"` | texto `"D mes"` | Formatea a "D mes" en español. | RF-4 |
+| `textoEtiquetaDia(fechaTexto, minutos)` | fecha + minutos | texto | Compone "D mes — N min" o "D mes — sin sesión". | RF-4 |
+| `NIVELES_LEYENDA` (constante) | — | `[0,1,2,3,4]` | Niveles de la leyenda de intensidad. | RF-5 |
 
 **Decisiones de diseño de estas funciones**
 - `hoy` es siempre parámetro explícito → testeable sin reloj real (constitución #3).
