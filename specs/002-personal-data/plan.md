@@ -41,8 +41,8 @@ Todas en `profile.js`; no tocan DOM ni almacenamiento y son deterministas.
 | `COLOR_DEFECTO` (constante) | — | string | Color por defecto de la paleta. | RF-3 |
 | `PERFIL_POR_DEFECTO` (constante) | — | objeto | Perfil por defecto (nombre vacío, color por defecto, sin meta, saludo activado). | RF-1, RF-8 |
 | `recortarNombre(valor)` | valor cualquiera | `{ nombre, truncado }` | Recorta espacios y limita a 40 caracteres; marca si truncó. | RF-2 |
-| `esNombreValido(valor)` | valor cualquiera | booleano | `true` si, tras recortar, hay entre 1 y 40 caracteres. | RF-2 |
-| `inicialAvatar(nombre)` | string | string (1 carácter) | Primer carácter **alfanumérico** en mayúscula; `?` si no hay. | RF-3 |
+| `esNombreValido(valor)` | valor cualquiera | booleano | `true` si, tras recortar, hay entre 1 y 40 caracteres y solo contiene letras (con acentos), espacios, guiones o apóstrofes (sin dígitos ni otros símbolos). | RF-2 |
+| `inicialAvatar(nombre)` | string | string (1 carácter) | Primera **letra** en mayúscula; `?` si no hay ninguna. | RF-3 |
 | `esColorValido(color)` | string | booleano | `true` si el color pertenece a `PALETA`. | RF-3 |
 | `normalizarColor(color)` | string | string | Devuelve el color si es válido; si no, `COLOR_DEFECTO`. | RF-3 |
 | `esMetaValida(valor)` | valor cualquiera | booleano | `true` si es entero entre 0 y 10080 (0 = sin meta). | RF-4 |
@@ -252,10 +252,10 @@ texto alternativo); barra de progreso con su valor anunciado; navegación con te
 
 | Área | Casos | RF |
 |---|---|---|
-| Nombre válido | "Ana", "J", 40 caracteres → ok; recorte de espacios " Ana " → "Ana" | RF-2 |
-| Nombre inválido | "", "   " → rechazado (error "obligatorio") | RF-2 |
+| Nombre válido | "Ana", "J", 40 caracteres → ok; recorte de espacios " Ana " → "Ana"; "José María", "Jean-Luc", "O'Neill" → válidos | RF-2 |
+| Nombre inválido | "", "   " → rechazado (error "obligatorio"); "Ana123", "123", "Ana!" → rechazado (solo letras) | RF-2 |
 | Nombre largo | 41+ caracteres → truncado a 40 y marcado `truncado` | RF-2 |
-| Inicial del avatar | "ana"→"A"; "123"→"1"; "💡ana"→"A"; ""→"?"; "..."→"?"; acentos "él"→"É"/"E" | RF-3 |
+| Inicial del avatar | "ana"→"A"; "él"→"É"; "Jean-Luc"→"J"; "O'Neill"→"O"; ""→"?"; "..."→"?" | RF-3 |
 | Color | color de paleta válido; fuera de paleta → defecto | RF-3 |
 | Meta | 1, 60, 10080 válidos; 0 → null; -5, 1.5, "abc", 10081 → inválidos | RF-4 |
 | Progreso | sin meta → `tieneMeta:false`; 30/60 → 50%; 60/60 → `cumplida:true`; 90/60 → 100% y `restante:0` | RF-4 |

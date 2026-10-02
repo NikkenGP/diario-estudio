@@ -52,14 +52,20 @@ nombre, el avatar, la meta semanal y la preferencia actuales.
 
 ### RF-2 — Nombre
 El perfil debe permitir registrar y actualizar un nombre, que es el único dato
-**obligatorio** para que exista un perfil guardado.
+**obligatorio** para que exista un perfil guardado. El nombre **solo admite letras**
+(con acentos), **espacios, guiones y apóstrofes**; **no se admiten dígitos** ni otros
+símbolos. La validación se realiza **al guardar**.
 
 **Criterios de aceptación (EARS):**
 - *Cuando* el usuario guarda el perfil con un nombre válido (tras recortar espacios,
-  entre 1 y 40 caracteres), el sistema **guardará** ese nombre y **lo mostrará**.
+  entre 1 y 40 caracteres, solo con letras/espacios/guiones/apóstrofes), el sistema
+  **guardará** ese nombre y **lo mostrará**.
 - *Cuando* el usuario intenta guardar sin nombre o solo con espacios, el sistema
   **rechazará** el guardado y **mostrará** un mensaje indicando que el nombre es
   obligatorio.
+- *Cuando* el usuario introduce un nombre que contiene dígitos u otros símbolos no
+  permitidos, el sistema **rechazará** el guardado y **mostrará** un mensaje indicando
+  que solo se admiten letras (con acentos), espacios, guiones y apóstrofes.
 - *Cuando* el usuario introduce un nombre de más de 40 caracteres, el sistema
   **limitará** su longitud y **lo indicará**.
 - *Cuando* el usuario cambia el nombre, el sistema **actualizará** el nombre guardado
@@ -68,12 +74,12 @@ El perfil debe permitir registrar y actualizar un nombre, que es el único dato
 ### RF-3 — Avatar (inicial y color)
 El avatar debe representarse como la **inicial del nombre** sobre un **color elegido**
 por el usuario de una **paleta fija y predefinida**. No se admiten imágenes.
-La inicial será el **primer carácter alfanumérico** del nombre (tras recortar
-espacios), en mayúscula; si no hay ninguno, se usará el símbolo `?`.
+La inicial será la **primera letra** del nombre (tras recortar espacios), en mayúscula;
+si no hay ninguna, se usará el símbolo `?`.
 
 **Criterios de aceptación (EARS):**
-- *Cuando* existe un nombre con al menos un carácter alfanumérico, el sistema
-  **mostrará** un avatar con su primera letra o dígito en mayúscula.
+- *Cuando* existe un nombre con al menos una letra, el sistema **mostrará** un avatar
+  con su primera letra en mayúscula.
 - *Cuando* el usuario elige un color de la paleta, el sistema **guardará** esa
   elección y **la aplicará** al avatar.
 - *Cuando* el usuario no elige color, el sistema **usará** un color por defecto de la
@@ -194,10 +200,12 @@ El usuario debe poder eliminar su perfil y volver al estado por defecto.
 - **Nombre con espacios sobrantes** (" Ana "): se recortan y se guarda "Ana" (RF-2).
 - **Nombre muy largo**: se limita a 40 caracteres y se indica (RF-2); debe verse sin
   romper el diseño (RNF-4).
-- **Nombre con emojis o acentos**: se guarda tal cual. La inicial es el primer carácter
-  alfanumérico; si no hay ninguno, se usa `?` (RF-3).
-- **Nombre cuyo primer carácter es un emoji**: la inicial salta al primer
-  alfanumérico; si no existe, `?` (RF-3).
+- **Nombre con dígitos** ("Ana123", "123"): se rechaza; solo letras (con acentos),
+  espacios, guiones y apóstrofes (RF-2).
+- **Nombre con acentos, espacios, guiones o apóstrofes** ("José María", "Jean-Luc",
+  "O'Neill"): válido. La inicial es la primera letra en mayúscula (RF-2, RF-3).
+- **Nombre con emojis u otros símbolos**: se rechaza (no son letras) (RF-2). El avatar
+  neutro `?` sigue cubierto por el caso "sin nombre".
 - **Cambio de color de avatar con nombre válido**: se guarda el perfil completo (RF-2,
   RF-3). No existe "guardar color sin nombre" (un perfil sin nombre no se guarda).
 - **Meta no numérica, negativa, decimal o > 10080**: se rechaza sin romper (RF-4).
@@ -237,8 +245,8 @@ El usuario debe poder eliminar su perfil y volver al estado por defecto.
 
 1. Existe una vista de perfil donde se ven y editan nombre, avatar, meta y preferencia
    (RF-1).
-2. El nombre es obligatorio (1–40 caracteres, recortado) y se puede actualizar sin
-   perder otros datos (RF-2).
+2. El nombre es obligatorio, solo con letras (más espacios/guiones/apóstrofes), de 1 a
+   40 caracteres, y se puede actualizar sin perder otros datos (RF-2).
 3. El avatar es la inicial alfanumérica sobre un color de la paleta, sin imágenes, con
    neutro `?` si no hay nombre (RF-3).
 4. La meta semanal se guarda y muestra el progreso de la semana, con meta cumplida

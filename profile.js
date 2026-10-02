@@ -94,11 +94,13 @@ function recortarNombre(valor) {
 }
 
 /**
- * true si, tras recortar, hay entre 1 y MAX_NOMBRE caracteres
+ * true si, tras recortar, hay entre 1 y MAX_NOMBRE caracteres y solo contiene
+ * letras (con acentos), espacios, guiones o apóstrofes. No admite dígitos.
  */
 function esNombreValido(valor) {
     const { nombre } = recortarNombre(valor);
-    return nombre.length >= 1 && nombre.length <= MAX_NOMBRE;
+    if (nombre.length < 1 || nombre.length > MAX_NOMBRE) return false;
+    return /^[\p{L}][\p{L} '\-]*$/u.test(nombre);
 }
 
 /* --------------------------------------------
@@ -106,12 +108,12 @@ function esNombreValido(valor) {
    -------------------------------------------- */
 
 /**
- * Primer carácter alfanumérico del nombre, en mayúscula; "?" si no hay.
+ * Primera letra del nombre, en mayúscula; "?" si no hay ninguna.
  */
 function inicialAvatar(nombre) {
     const texto = (nombre === null || nombre === undefined) ? "" : String(nombre);
     for (const caracter of texto) {
-        if (/[\p{L}\p{N}]/u.test(caracter)) {
+        if (/^\p{L}$/u.test(caracter)) {
             return caracter.toUpperCase();
         }
     }
@@ -282,6 +284,9 @@ function construirPerfil(entrada) {
     const { nombre, truncado } = recortarNombre(datos.nombre);
     if (!nombre) {
         return { ok: false, error: "El nombre es obligatorio" };
+    }
+    if (!esNombreValido(nombre)) {
+        return { ok: false, error: "El nombre solo puede tener letras, espacios, guiones y apóstrofes" };
     }
 
     const color = normalizarColor(datos.color);

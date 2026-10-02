@@ -58,28 +58,38 @@ test("recortarNombre trunca a 40 caracteres y lo marca", () => {
   assert.strictEqual(r.truncado, true);
 });
 
-test("esNombreValido acepta nombres con contenido y rechaza vacíos", () => {
+test("esNombreValido acepta nombres con letras y signos válidos", () => {
   assert.strictEqual(esNombreValido("Ana"), true);
+  assert.strictEqual(esNombreValido("José María"), true);
+  assert.strictEqual(esNombreValido("Jean-Luc"), true);
+  assert.strictEqual(esNombreValido("O'Neill"), true);
+});
+
+test("esNombreValido rechaza vacíos, dígitos y otros símbolos", () => {
   assert.strictEqual(esNombreValido("   "), false);
   assert.strictEqual(esNombreValido(""), false);
   assert.strictEqual(esNombreValido(null), false);
   assert.strictEqual(esNombreValido(undefined), false);
+  assert.strictEqual(esNombreValido("123"), false);
+  assert.strictEqual(esNombreValido("Ana123"), false);
+  assert.strictEqual(esNombreValido("Ana!"), false);
+  assert.strictEqual(esNombreValido("💡ana"), false);
 });
 
 // ---------------------------------------------------------
 // T4: inicial y color del avatar (RF-3)
 // ---------------------------------------------------------
-test("inicialAvatar toma el primer alfanumérico en mayúscula", () => {
+test("inicialAvatar toma la primera letra en mayúscula", () => {
   assert.strictEqual(inicialAvatar("ana"), "A");
-  assert.strictEqual(inicialAvatar("123"), "1");
-  assert.strictEqual(inicialAvatar("💡ana"), "A");
   assert.strictEqual(inicialAvatar("él"), "É");
+  assert.strictEqual(inicialAvatar("Jean-Luc"), "J");
+  assert.strictEqual(inicialAvatar("O'Neill"), "O");
 });
 
-test("inicialAvatar usa ? cuando no hay alfanumérico", () => {
+test("inicialAvatar usa ? cuando no hay letra", () => {
   assert.strictEqual(inicialAvatar(""), "?");
   assert.strictEqual(inicialAvatar("..."), "?");
-  assert.strictEqual(inicialAvatar("💡"), "?");
+  assert.strictEqual(inicialAvatar("123"), "?");
   assert.strictEqual(inicialAvatar(null), "?");
 });
 
@@ -235,6 +245,12 @@ test("construirPerfil devuelve perfil válido con version", () => {
 
 test("construirPerfil rechaza meta inválida sin perder el nombre", () => {
   const r = construirPerfil({ nombre: "Ana", color: PALETA[0], meta: "abc", saludo: true });
+  assert.strictEqual(r.ok, false);
+  assert.ok(r.error);
+});
+
+test("construirPerfil rechaza nombres con dígitos", () => {
+  const r = construirPerfil({ nombre: "Ana123", color: PALETA[0], meta: "", saludo: true });
   assert.strictEqual(r.ok, false);
   assert.ok(r.error);
 });

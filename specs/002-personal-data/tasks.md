@@ -32,15 +32,17 @@
 - [x] **T3. Validar y recortar el nombre**
   - **RF:** RF-2
   - Implementar `recortarNombre(valor)` y `esNombreValido(valor)`: recortan espacios y
-    limitan a 40 caracteres (marcando `truncado`); vacío o solo espacios → inválido.
+    limitan a 40 caracteres (marcando `truncado`); vacío o solo espacios → inválido;
+    solo se admiten letras (con acentos), espacios, guiones y apóstrofes (sin dígitos).
   - **Hecho cuando:** los tests confirman que " Ana " → "Ana", 41+ caracteres → 40 y
-    `truncado:true`, y "" / "   " → inválido.
+    `truncado:true`, "123"/"Ana123"/"Ana!" → inválido, y "José María"/"Jean-Luc"/"O'Neill"
+    → válidos.
 
 - [x] **T4. Inicial y color del avatar**
   - **RF:** RF-3
   - Implementar `inicialAvatar(nombre)`, `esColorValido(color)` y
     `normalizarColor(color)` sobre `PALETA` y `COLOR_DEFECTO`.
-  - **Hecho cuando:** los tests confirman "ana"→"A", "123"→"1", "💡ana"→"A", ""/"..."→"?",
+  - **Hecho cuando:** los tests confirman "ana"→"A", "él"→"É", "Jean-Luc"→"J", ""/"..."→"?",
     y que un color fuera de la paleta se normaliza al color por defecto.
 
 ---
