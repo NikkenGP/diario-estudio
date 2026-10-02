@@ -36,5 +36,4 @@ Memoria del proyecto entre sesiones. Máximo ~50 líneas: resume o elimina lo qu
 - [2026-10-01] DISCREPANCIA (RESUELTA el 2026-10-01): el AGENTS.md decía clave `diario-estudio-sesiones` con `{date, topic, minutes, createdAt}`, pero el código real usa `sesiones` y `{fecha, tema, minutos}`. Decisión: la fuente de verdad es el código real; el mapa lee de forma defensiva y no migra datos. AGENTS.md ya alineado con el código (clave `sesiones`, `{fecha, tema, minutos}`), el stack real (`styles.css`, `heatmap.js`, `test/`) y la verificación con `node --test`.
 
 ## Próximos pasos
-- `calcularMejorRacha` usa `new Date("AAAA-MM-DD")` y división por `86400000` (líneas ~109-111): viola la skill `local-dates`. Pendiente de corregir si el usuario lo autoriza.
-- SEGURIDAD: rotar/revocar el token de GitHub expuesto en texto plano en `opencode.json` y moverlo a variable de entorno.
+- (vacío)
