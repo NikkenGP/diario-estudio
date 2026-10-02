@@ -82,6 +82,7 @@ Cada commit relevante se anota aquí (el más reciente primero).
 
 | Fecha | Cambio |
 |---|---|
+| 2026-10-01 | Spec `specs/002-personal-data/spec.md`: perfil local (nombre, avatar inicial+color, meta semanal, preferencia). |
 | 2026-10-01 | Limpieza de `MEMORY.md`: retirados los pendientes ya resueltos (token de Git y `calcularMejorRacha`). |
 | 2026-10-01 | `AGENTS.md` alineado con el código: clave `sesiones`, `{fecha, tema, minutos}`, stack real y verificación con `node --test`. |
 | 2026-10-01 | Corrección de `calcularMejorRacha`: fechas locales sin UTC ni milisegundos (skill `local-dates`). |
