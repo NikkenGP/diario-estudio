@@ -14,6 +14,7 @@ sin instalar nada.
 - Suma el **tiempo de la semana** (de lunes a hoy).
 - Cuenta los **días estudiados este mes**.
 - Muestra un **mapa de calor** de las últimas 12 semanas (cuantos más minutos, más intenso).
+- Guarda un **perfil personal** (nombre, avatar con inicial y color, meta semanal con progreso y preferencia de saludo), solo en el dispositivo.
 - Lista el historial de sesiones.
 
 ## Cómo usarla
@@ -31,7 +32,7 @@ la clave `sesiones`.
 
 - Sin backend, sin dependencias y sin paso de build: HTML, CSS y JavaScript puros.
 - Cuatro archivos: `index.html`, `styles.css`, `app.js` y `heatmap.js`.
-- Los datos se guardan en `localStorage` bajo la clave `sesiones`.
+- Los datos se guardan en `localStorage` bajo la clave `sesiones` (y el perfil, bajo `perfil`).
 
 ## Tests
 
@@ -69,6 +70,7 @@ Las fechas son la mayor fuente de errores, así que se tratan con cuidado:
 | `styles.css` | Estilos |
 | `app.js` | Lógica (racha, semana, mes, almacenamiento) |
 | `heatmap.js` | Lógica pura del mapa de calor (recibe "hoy"; sin DOM) |
+| `profile.js` | Lógica pura del perfil (validación, avatar, meta, parseo; sin DOM) |
 | `test/` | Tests de la lógica con `node --test` |
 | `AGENTS.md` | Reglas para los agentes |
 | `MEMORY.md` | Memoria del proyecto entre sesiones |
@@ -82,6 +84,7 @@ Cada commit relevante se anota aquí (el más reciente primero).
 
 | Fecha | Cambio |
 |---|---|
+| 2026-10-01 | Perfil del usuario (002): `profile.js` con lógica pura y tests, vista de perfil, saludo, meta con progreso y borrado. |
 | 2026-10-01 | Tasks `specs/002-personal-data/tasks.md`: 19 tareas en 6 fases con RF y "Hecho cuando". |
 | 2026-10-01 | Plan `specs/002-personal-data/plan.md`: lógica pura en `profile.js`, clave `perfil` separada, tests con `node --test`. |
 | 2026-10-01 | Regla de `AGENTS.md` matizada (secretos vs datos personales) y spec 002 sin dudas abiertas. |

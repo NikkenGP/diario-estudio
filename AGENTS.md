@@ -1,7 +1,7 @@
 # AGENTS.md - Diario de Estudio
 
 ## Stack y estructura
-- `index.html` (estructura), `styles.css` (estilos), `app.js` (interfaz, almacenamiento y cálculos de racha/semana/mes), `heatmap.js` (lógica pura del mapa de calor) y `test/` (tests con `node --test`).
+- `index.html` (estructura), `styles.css` (estilos), `app.js` (interfaz, almacenamiento y cálculos de racha/semana/mes), `heatmap.js` (lógica pura del mapa de calor), `profile.js` (lógica pura del perfil) y `test/` (tests con `node --test`).
 - Debe funcionar abriendo `index.html` con doble click (`file://`); nada de módulos ES (`type="module"`), `fetch` a archivos locales ni nada que requiera servidor
 
 ## Convenciones
@@ -13,6 +13,7 @@
 ## Datos
 
 - LocalStorage, clave `sesiones`: array de `{ fecha: "AAAA-MM-DD", tema, minutos }` (`minutos` es el total en minutos de la sesión).
+- LocalStorage, clave `perfil`: objeto `{ nombre, color, meta, saludo, version }` (independiente de `sesiones`).
 - Si cambias la forma de los datos, mantén compatibilidad con lo ya guardado o el usuario perderá sus sesiones.
 
 ## Fechas y racha (fácil equivocarse)

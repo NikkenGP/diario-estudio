@@ -19,6 +19,25 @@ const listaSesiones = document.getElementById('lista-sesiones');
 const contenedorMapa = document.getElementById('mapa-calor');
 const elementoEtiquetaMapa = document.getElementById('mapa-etiqueta');
 const elementoMensajeMapa = document.getElementById('mapa-mensaje');
+// Perfil
+const elementoSaludo = document.getElementById('saludo');
+const botonAbrirPerfil = document.getElementById('abrir-perfil');
+const vistaPerfil = document.getElementById('perfil');
+const avatarMini = document.getElementById('perfil-avatar-mini');
+const avatarGrande = document.getElementById('perfil-avatar');
+const inputPerfilNombre = document.getElementById('perfil-nombre');
+const contenedorPaleta = document.getElementById('perfil-paleta');
+const inputPerfilMeta = document.getElementById('perfil-meta');
+const inputPerfilSaludo = document.getElementById('perfil-saludo');
+const contenedorProgreso = document.getElementById('perfil-progreso');
+const barraProgreso = document.getElementById('progreso-barra');
+const rellenoProgreso = document.getElementById('progreso-relleno');
+const textoProgreso = document.getElementById('progreso-texto');
+const avisoPerfil = document.getElementById('perfil-aviso');
+const botonReiniciarPerfil = document.getElementById('perfil-reiniciar');
+const botonGuardarPerfil = document.getElementById('perfil-guardar');
+const botonBorrarPerfil = document.getElementById('perfil-borrar');
+const mensajePerfil = document.getElementById('perfil-mensaje');
 
 
 /* --------------------------------------------
@@ -407,6 +426,198 @@ function actualizarMapaCalor() {
 
 
 /* --------------------------------------------
+   PASO 3c: Perfil del usuario (lógica en profile.js)
+   -------------------------------------------- */
+
+// Perfil en memoria (se rellena al arrancar)
+let estadoPerfil = { perfil: { ...PERFIL_POR_DEFECTO }, estado: 'vacio' };
+let colorSeleccionado = COLOR_DEFECTO;
+
+/**
+ * Lee el perfil del dispositivo usando la lógica pura de profile.js
+ */
+function leerPerfilGuardado() {
+    return parsearPerfil(localStorage.getItem('perfil'));
+}
+
+/**
+ * Guarda el perfil SOLO en la clave 'perfil' (nunca toca 'sesiones')
+ */
+function guardarPerfilEnDispositivo(perfil) {
+    try {
+        localStorage.setItem('perfil', JSON.stringify(perfil));
+        return true;
+    } catch (e) {
+        mostrarMensajePerfil('No se pudo guardar en este dispositivo');
+        return false;
+    }
+}
+
+/**
+ * Borra el perfil del dispositivo (nunca toca 'sesiones')
+ */
+function borrarPerfilDelDispositivo() {
+    localStorage.removeItem('perfil');
+}
+
+/**
+ * Muestra un mensaje bajo la vista de perfil
+ */
+function mostrarMensajePerfil(texto) {
+    mensajePerfil.textContent = texto;
+    mensajePerfil.classList.remove('oculto');
+    setTimeout(() => mensajePerfil.classList.add('oculto'), 3000);
+}
+
+/**
+ * Pinta la paleta de colores como botones seleccionables
+ */
+function pintarPaleta() {
+    contenedorPaleta.innerHTML = '';
+    PALETA.forEach(color => {
+        const boton = document.createElement('button');
+        boton.type = 'button';
+        boton.className = 'color-swatch';
+        boton.style.backgroundColor = color;
+        boton.setAttribute('aria-label', `Color ${color}`);
+        boton.setAttribute('aria-pressed', color === colorSeleccionado ? 'true' : 'false');
+        if (color === colorSeleccionado) boton.classList.add('seleccionado');
+        boton.addEventListener('click', () => {
+            colorSeleccionado = color;
+            avatarGrande.style.backgroundColor = color;
+            pintarPaleta();
+        });
+        contenedorPaleta.appendChild(boton);
+    });
+}
+
+/**
+ * Pinta el avatar (grande y mini) con la inicial y el color
+ */
+function pintarAvatares(perfil) {
+    const inicial = inicialAvatar(perfil.nombre);
+    [avatarGrande, avatarMini].forEach(a => {
+        a.textContent = inicial;
+        a.style.backgroundColor = perfil.color;
+    });
+}
+
+/**
+ * Pinta el saludo personalizado según la preferencia
+ */
+function pintarSaludo(perfil) {
+    const texto = textoSaludo(perfil);
+    if (texto) {
+        elementoSaludo.textContent = texto;
+        elementoSaludo.classList.remove('oculto');
+    } else {
+        elementoSaludo.textContent = '';
+        elementoSaludo.classList.add('oculto');
+    }
+}
+
+/**
+ * Pinta la barra de progreso de la meta
+ */
+function pintarProgreso(perfil) {
+    const minutos = minutosSemana(obtenerSesiones(), fechaAtexto(new Date()));
+    const progreso = progresoMeta(minutos, perfil.meta);
+
+    if (!progreso.tieneMeta) {
+        contenedorProgreso.classList.add('oculto');
+        return;
+    }
+
+    contenedorProgreso.classList.remove('oculto');
+    rellenoProgreso.style.width = `${progreso.porcentaje}%`;
+    barraProgreso.setAttribute('aria-valuemax', String(progreso.meta));
+    barraProgreso.setAttribute('aria-valuenow', String(progreso.minutos));
+    if (progreso.cumplida) {
+        textoProgreso.textContent = `¡Meta cumplida! ${progreso.minutos} de ${progreso.meta} min`;
+        contenedorProgreso.classList.add('cumplida');
+    } else {
+        textoProgreso.textContent = `${progreso.minutos} de ${progreso.meta} min (faltan ${progreso.restante})`;
+        contenedorProgreso.classList.remove('cumplida');
+    }
+}
+
+/**
+ * Renderiza toda la vista de perfil y el saludo
+ */
+function renderPerfil() {
+    const perfil = estadoPerfil.perfil;
+    colorSeleccionado = perfil.color;
+
+    inputPerfilNombre.value = perfil.nombre;
+    inputPerfilMeta.value = perfil.meta === null ? '' : perfil.meta;
+    inputPerfilSaludo.checked = perfil.saludo;
+
+    pintarAvatares(perfil);
+    pintarPaleta();
+    pintarSaludo(perfil);
+    pintarProgreso(perfil);
+
+    // Aviso de corrupción
+    if (estadoPerfil.estado === 'corrupto') {
+        avisoPerfil.classList.remove('oculto');
+    } else {
+        avisoPerfil.classList.add('oculto');
+    }
+}
+
+/* Eventos del perfil */
+botonAbrirPerfil.addEventListener('click', () => {
+    vistaPerfil.classList.toggle('oculto');
+});
+
+botonGuardarPerfil.addEventListener('click', () => {
+    const resultado = construirPerfil({
+        nombre: inputPerfilNombre.value,
+        color: colorSeleccionado,
+        meta: inputPerfilMeta.value,
+        saludo: inputPerfilSaludo.checked,
+    });
+
+    if (!resultado.ok) {
+        mostrarMensajePerfil(resultado.error);
+        return;
+    }
+
+    if (guardarPerfilEnDispositivo(resultado.perfil)) {
+        estadoPerfil = { perfil: resultado.perfil, estado: 'ok' };
+        renderPerfil();
+        mostrarMensajePerfil(resultado.truncado ? 'Perfil guardado (nombre recortado a 40)' : 'Perfil guardado');
+    }
+});
+
+botonBorrarPerfil.addEventListener('click', () => {
+    if (!window.confirm('¿Borrar tu perfil? Tus sesiones no se tocarán.')) return;
+    borrarPerfilDelDispositivo();
+    estadoPerfil = { perfil: { ...PERFIL_POR_DEFECTO }, estado: 'vacio' };
+    renderPerfil();
+    mostrarMensajePerfil('Perfil borrado');
+});
+
+botonReiniciarPerfil.addEventListener('click', () => {
+    if (!window.confirm('¿Reiniciar tu perfil? Se borrarán solo los datos de perfil.')) return;
+    borrarPerfilDelDispositivo();
+    estadoPerfil = { perfil: { ...PERFIL_POR_DEFECTO }, estado: 'vacio' };
+    renderPerfil();
+    mostrarMensajePerfil('Perfil reiniciado');
+});
+
+// La preferencia del saludo se aplica al instante (y se guarda si hay perfil)
+inputPerfilSaludo.addEventListener('change', () => {
+    const perfil = { ...estadoPerfil.perfil, saludo: inputPerfilSaludo.checked };
+    pintarSaludo(perfil);
+    if (estadoPerfil.estado !== 'vacio' && esNombreValido(perfil.nombre)) {
+        guardarPerfilEnDispositivo(perfil);
+        estadoPerfil = { perfil, estado: 'ok' };
+    }
+});
+
+
+/* --------------------------------------------
    PASO 4: Mostrar mensaje temporal
    -------------------------------------------- */
 function mostrarMensaje(texto) {
@@ -456,6 +667,7 @@ formSesion.addEventListener('submit', function(e) {
     actualizarDiasMes();
     actualizarLista();
     actualizarMapaCalor();
+    pintarProgreso(estadoPerfil.perfil);
     
     // Limpiamos el formulario y ponemos la fecha de hoy
     inputTema.value = '';
@@ -481,3 +693,7 @@ actualizarTotalSemana();
 actualizarDiasMes();
 actualizarLista();
 actualizarMapaCalor();
+
+// Cargamos el perfil (o el perfil por defecto) y lo pintamos
+estadoPerfil = leerPerfilGuardado();
+renderPerfil();

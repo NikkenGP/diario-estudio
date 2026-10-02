@@ -392,6 +392,208 @@ input:focus {
 }
 
 /* --------------------------------------------
+   Perfil del usuario
+   -------------------------------------------- */
+.saludo {
+    text-align: center;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--tinta);
+    margin-bottom: 16px;
+}
+
+.acceso-perfil {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    font: inherit;
+    font-weight: 700;
+    color: var(--tinta);
+    cursor: pointer;
+}
+
+.acceso-perfil:hover {
+    border-color: var(--acento);
+}
+
+.avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--acento);
+    color: #fff;
+    font-family: var(--serif);
+    font-size: 1.8rem;
+    font-weight: 700;
+    flex: 0 0 auto;
+}
+
+.avatar-mini {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+}
+
+/* Vista de perfil */
+.perfil {
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.perfil-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.perfil-nombre-col {
+    flex: 1;
+    min-width: 0;
+}
+
+.perfil-nombre-col input {
+    margin-bottom: 0;
+}
+
+.perfil-color {
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 16px;
+}
+
+.perfil-color legend {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--tinta-suave);
+    padding: 0 6px;
+}
+
+.paleta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.color-swatch {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    padding: 0;
+}
+
+.color-swatch.seleccionado {
+    border-color: var(--tinta);
+    outline: 2px solid #fff;
+    outline-offset: -4px;
+}
+
+.perfil-saludo-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: var(--tinta);
+    margin: 8px 0 16px;
+}
+
+.perfil-saludo-toggle input {
+    width: auto;
+    margin: 0;
+}
+
+.perfil-acciones {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.perfil-acciones button {
+    flex: 1 1 140px;
+}
+
+.boton-secundario {
+    background: transparent;
+    color: var(--acento);
+    border: 1px solid var(--acento);
+    padding: 14px;
+    font: inherit;
+    font-weight: 700;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.boton-secundario:hover {
+    background: rgba(37, 71, 201, 0.08);
+}
+
+.perfil-aviso {
+    background: #fdecea;
+    border: 1px solid #e6b0aa;
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 16px;
+    color: #922b21;
+    font-size: 0.9rem;
+}
+
+.perfil-aviso p {
+    margin-bottom: 10px;
+}
+
+/* Barra de progreso */
+.progreso {
+    margin-bottom: 16px;
+}
+
+.progreso-barra {
+    width: 100%;
+    height: 14px;
+    background: #e3e8ee;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progreso-relleno {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: var(--acento);
+    border-radius: 999px;
+    transition: width 0.2s ease;
+}
+
+.progreso.cumplida .progreso-relleno {
+    background: var(--exito);
+}
+
+.progreso-texto {
+    margin-top: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--tinta-suave);
+}
+
+.progreso.cumplida .progreso-texto {
+    color: var(--exito);
+}
+
+/* --------------------------------------------
    Accesibilidad: foco visible y movimiento reducido
    -------------------------------------------- */
 :focus-visible {

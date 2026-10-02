@@ -10,6 +10,60 @@
     <div class="contenedor">
         <h1>📚 Diario de Estudio</h1>
 
+        <!-- Saludo personalizado (según la preferencia del perfil) -->
+        <p id="saludo" class="saludo oculto"></p>
+
+        <!-- Acceso al perfil -->
+        <button type="button" id="abrir-perfil" class="acceso-perfil">
+            <span id="perfil-avatar-mini" class="avatar avatar-mini" aria-hidden="true">?</span>
+            <span>Mi perfil</span>
+        </button>
+
+        <!-- Vista de perfil -->
+        <section id="perfil" class="perfil oculto" aria-label="Perfil del usuario">
+            <h2>Mi perfil</h2>
+
+            <!-- Aviso de datos corruptos -->
+            <div id="perfil-aviso" class="perfil-aviso oculto" role="alert">
+                <p>No se pudieron leer tus datos de perfil. Se muestra el perfil por defecto.</p>
+                <button type="button" id="perfil-reiniciar" class="boton-secundario">Reiniciar perfil</button>
+            </div>
+
+            <div class="perfil-cabecera">
+                <span id="perfil-avatar" class="avatar" aria-hidden="true">?</span>
+                <div class="perfil-nombre-col">
+                    <label for="perfil-nombre">Nombre</label>
+                    <input type="text" id="perfil-nombre" maxlength="40" placeholder="¿Cómo te llamas?" autocomplete="name">
+                </div>
+            </div>
+
+            <fieldset class="perfil-color">
+                <legend>Color de tu avatar</legend>
+                <div id="perfil-paleta" class="paleta"></div>
+            </fieldset>
+
+            <label for="perfil-meta">Meta semanal (minutos)</label>
+            <input type="number" id="perfil-meta" min="0" max="10080" step="1" placeholder="Sin meta">
+
+            <div id="perfil-progreso" class="progreso oculto">
+                <div class="progreso-barra" role="progressbar" id="progreso-barra" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                    <span id="progreso-relleno" class="progreso-relleno"></span>
+                </div>
+                <p id="progreso-texto" class="progreso-texto"></p>
+            </div>
+
+            <label class="perfil-saludo-toggle">
+                <input type="checkbox" id="perfil-saludo">
+                Mostrar saludo personalizado
+            </label>
+
+            <div class="perfil-acciones">
+                <button type="button" id="perfil-guardar" class="boton-principal">Guardar perfil</button>
+                <button type="button" id="perfil-borrar" class="boton-secundario">Borrar perfil</button>
+            </div>
+            <p id="perfil-mensaje" class="mensaje oculto"></p>
+        </section>
+
         <!-- Racha actual -->
         <section class="racha">
             <span class="racha-numero" id="racha">0</span>
@@ -87,6 +141,7 @@
     </div>
 
     <script src="heatmap.js"></script>
+    <script src="profile.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

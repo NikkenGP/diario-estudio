@@ -39,6 +39,8 @@ Memoria del proyecto entre sesiones. Máximo ~50 líneas: resume o elimina lo qu
 - [2026-10-01] Regla de `AGENTS.md` matizada: ya no prohíbe "datos personales" en general, sino secretos (claves, tokens, contraseñas); admite datos personales mínimos, locales y controlados por el usuario. Resuelve el conflicto con la spec 002.
 - Plan `specs/002-personal-data/plan.md` escrito: `profile.js` (lógica pura con "hoy": validación, inicial del avatar, progreso de meta, parseo tolerante), `test/profile.test.js` (node --test), cambios en `index.html`/`styles.css`/`app.js`. Clave nueva `perfil` separada de `sesiones`; campo `version` para compatibilidad. Guardia CommonJS como en `heatmap.js`.
 - Tasks `specs/002-personal-data/tasks.md` escritas: 19 tareas (T1–T19) en 6 fases, con RF por tarea y "Hecho cuando" verificable. Lista para implementar.
+- T1 (002) completada: creados `profile.js` (esqueleto con `PALETA`, `COLOR_DEFECTO`, `PERFIL_POR_DEFECTO` y guardia CommonJS) y `test/profile.test.js` (TDD: rojo → verde; total 22 tests). T2 pendiente.
+- Spec 002 COMPLETADA (T1–T19). `profile.js`: lógica pura (`recortarNombre`, `esNombreValido`, `inicialAvatar`, `esColorValido`/`normalizarColor`, `esMetaValida`/`normalizarMeta`, `minutosSemana`, `progresoMeta`, `textoSaludo`, `normalizarPerfil`, `parsearPerfil`, `construirPerfil`). `test/profile.test.js`: 24 tests (total 46 con heatmap). Interfaz: vista de perfil en `index.html`/`styles.css`/`app.js`, saludo, barra de progreso, aviso de corrupción con "Reiniciar perfil", borrado con confirmación. Clave `perfil` separada de `sesiones`. Verificado en Chrome (persistencia, corrupción, borrado, saludo en vivo, móvil 375 px sin overflow, consola sin errores).
 
 ## Próximos pasos
 - (vacío)
