@@ -424,6 +424,14 @@ function actualizarMapaCalor() {
     }
 }
 
+// RF-4: al tocar fuera de la rejilla se oculta la etiqueta del día.
+// (En ratón y teclado ya se oculta con mouseleave/blur de cada celda.)
+document.addEventListener('touchstart', (evento) => {
+    if (!contenedorMapa.contains(evento.target)) {
+        ocultarEtiquetaMapa();
+    }
+}, { passive: true });
+
 
 /* --------------------------------------------
    PASO 3c: Perfil del usuario (lógica en profile.js)

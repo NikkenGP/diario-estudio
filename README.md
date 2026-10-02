@@ -84,6 +84,7 @@ Cada commit relevante se anota aquí (el más reciente primero).
 
 | Fecha | Cambio |
 |---|---|
+| 2026-10-02 | Auditoría QA (`docs/functional-test-report.md`) y corrección de los 2 hallazgos: toque fuera oculta la etiqueta del mapa y la meta no numérica muestra error. |
 | 2026-10-02 | Skill local `iniciar-sdd` (flujo SDD de 6 pasos con confirmación por paso); vive en `.agents/` (no versionado). |
 | 2026-10-01 | El nombre del perfil ahora solo admite letras (con acentos, espacios, guiones y apóstrofes); se rechazan dígitos. |
 | 2026-10-01 | Perfil del usuario (002): `profile.js` con lógica pura y tests, vista de perfil, saludo, meta con progreso y borrado. |
