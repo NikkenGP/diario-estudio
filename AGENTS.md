@@ -30,7 +30,7 @@
 - Al terminar una tarea, actualízalo: estado actual, decisiones importantes (con su porqué) y errores a evitar.
 - Mantenlo breve (máximo ~50 líneas): resume o elimina lo que ya no aporte.
 - Si algo se convierte en una regla permanente, propón moverlo a `AGENTS.md` en lugar de dejarlo en la memoria.
-- No guardes nunca datos sensibles (claves, tokens, datos personales).
+- No guardes nunca secretos ni datos sensibles: claves, tokens, contraseñas o credenciales. Los datos personales del usuario (p. ej. nombre o meta) solo se admiten si son mínimos, se guardan únicamente en el dispositivo y el propio usuario los controla.
 
 ## Comandos
 - Tests: `node --test`

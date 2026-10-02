@@ -82,6 +82,7 @@ Cada commit relevante se anota aquí (el más reciente primero).
 
 | Fecha | Cambio |
 |---|---|
+| 2026-10-01 | Regla de `AGENTS.md` matizada (secretos vs datos personales) y spec 002 sin dudas abiertas. |
 | 2026-10-01 | Spec `specs/002-personal-data/spec.md` refinada tras revisión de QA (RF de borrado, límites, inicial del avatar, preferencia concreta, requisitos de accesibilidad). |
 | 2026-10-01 | Spec `specs/002-personal-data/spec.md`: perfil local (nombre, avatar inicial+color, meta semanal, preferencia). |
 | 2026-10-01 | Limpieza de `MEMORY.md`: retirados los pendientes ya resueltos (token de Git y `calcularMejorRacha`). |

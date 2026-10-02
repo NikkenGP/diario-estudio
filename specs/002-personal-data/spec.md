@@ -166,8 +166,8 @@ El usuario debe poder eliminar su perfil y volver al estado por defecto.
   dispositivo**; nunca se envían a servidores ni a terceros.
 - **RNF-2 — Datos mínimos y no sensibles**: el perfil se limita a nombre, avatar
   (inicial y color), meta y preferencia. **No** se piden ni almacenan contraseñas,
-  tokens, correo, teléfono ni otros datos sensibles. (Ver dudas abiertas: conciliar con
-  la regla global de `AGENTS.md`.)
+  tokens ni credenciales. Conforme a `AGENTS.md`, los datos personales solo se admiten
+  si son mínimos, locales y controlados por el usuario.
 - **RNF-3 — Español**: todos los textos del perfil (etiquetas, mensajes de error,
   avisos) están en español.
 - **RNF-4 — Móvil**: la vista de perfil debe verse y usarse bien en pantalla de móvil,
@@ -259,10 +259,7 @@ El usuario debe poder eliminar su perfil y volver al estado por defecto.
 
 ## Dudas abiertas
 
-- **[NECESITA ACLARACIÓN]** Conciliación con `AGENTS.md`: la regla global dice "No
-  guardes nunca datos sensibles (claves, tokens, **datos personales**)", mientras esta
-  funcionalidad guarda, por diseño, datos personales no sensibles y solo locales
-  (nombre, meta, preferencia). Hay que decidir si se matiza la regla global (p. ej.
-  "no datos sensibles; los datos personales solo son aceptables si son mínimos, locales
-  y controlados por el usuario") o si esta funcionalidad queda en pausa hasta
-  aclararlo. Es una decisión de gobernanza del proyecto, no de interfaz.
+- (ninguna) El conflicto con la regla global de `AGENTS.md` quedó **resuelto el
+  2026-10-01**: la regla se matizó para prohibir secretos y datos sensibles (claves,
+  tokens, contraseñas) y admitir datos personales **mínimos, locales y controlados por
+  el usuario**, que es justo lo que define esta spec (RNF-1, RNF-2, RNF-6).
