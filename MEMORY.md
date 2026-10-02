@@ -37,6 +37,7 @@ Memoria del proyecto entre sesiones. Máximo ~50 líneas: resume o elimina lo qu
 
 - Spec `specs/002-personal-data/spec.md` escrita: perfil local (nombre obligatorio; avatar inicial+color; meta semanal con progreso; preferencia = saludo). Solo QUÉ/POR QUÉ. Tras QA se refinó: añadidos RF-9 (borrar perfil) y acción de reinicio (RF-8), definidos inicial alfanumérica/caracteres, paleta fija, límites (nombre 1–40, meta 1–10080), preferencia concreta (saludo), RNF de compatibilidad/accesibilidad, y verificación con Chrome DevTools + MEMORY.md. Sin dudas abiertas.
 - [2026-10-01] Regla de `AGENTS.md` matizada: ya no prohíbe "datos personales" en general, sino secretos (claves, tokens, contraseñas); admite datos personales mínimos, locales y controlados por el usuario. Resuelve el conflicto con la spec 002.
+- Plan `specs/002-personal-data/plan.md` escrito: `profile.js` (lógica pura con "hoy": validación, inicial del avatar, progreso de meta, parseo tolerante), `test/profile.test.js` (node --test), cambios en `index.html`/`styles.css`/`app.js`. Clave nueva `perfil` separada de `sesiones`; campo `version` para compatibilidad. Guardia CommonJS como en `heatmap.js`.
 
 ## Próximos pasos
 - (vacío)
