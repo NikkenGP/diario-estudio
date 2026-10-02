@@ -82,6 +82,7 @@ Cada commit relevante se anota aquí (el más reciente primero).
 
 | Fecha | Cambio |
 |---|---|
+| 2026-10-01 | Tasks `specs/002-personal-data/tasks.md`: 19 tareas en 6 fases con RF y "Hecho cuando". |
 | 2026-10-01 | Plan `specs/002-personal-data/plan.md`: lógica pura en `profile.js`, clave `perfil` separada, tests con `node --test`. |
 | 2026-10-01 | Regla de `AGENTS.md` matizada (secretos vs datos personales) y spec 002 sin dudas abiertas. |
 | 2026-10-01 | Spec `specs/002-personal-data/spec.md` refinada tras revisión de QA (RF de borrado, límites, inicial del avatar, preferencia concreta, requisitos de accesibilidad). |
